@@ -69,7 +69,7 @@ function SideMenu(props) {
   }, [])
 
   const checkPagePermission = (item) => {
-    return item.pagepermisson
+    return item.pagepermisson !== undefined//直接返回item.pagepermisson有时候可以，有时候不行，还是这样写保险
   }
   const renderMenu = (menuList) => {
     return menuList.map(item => {
@@ -81,6 +81,7 @@ function SideMenu(props) {
       if (checkPagePermission(item)) {
         return <Menu.Item key={item.key} icon={iconList[item.key]} onClick={() => {
           // console.log(props)
+          // console.log(item.title)
           props.history.push(item.key)
         }}>{item.title}</Menu.Item>
       }
@@ -97,6 +98,7 @@ function SideMenu(props) {
           <Menu theme='dark' mode='inline' selectedKeys={selectKey}
             defaultOpenKeys={openKey}>
             {renderMenu(menu)}
+
           </Menu>
         </div>
       </div>
