@@ -12,10 +12,10 @@
     {
       "username": "钢蛋",
       "password": "123",
-      "roleState": true,
+      "roleState": false,
       "default": false,
-      "region": "亚洲",
-      "roleId": 2,
+      "region": "",
+      "roleId": 1,
       "id": 3
     },
     {
@@ -23,8 +23,8 @@
       "password": "123",
       "roleState": true,
       "default": false,
-      "region": "南美洲",
-      "roleId": 2,
+      "region": "",
+      "roleId": 1,
       "id": 4
     },
     {
@@ -32,8 +32,8 @@
       "password": "123",
       "roleState": true,
       "default": false,
-      "region": "南极洲",
-      "roleId": 3,
+      "region": "",
+      "roleId": 1,
       "id": 5
     },
     {

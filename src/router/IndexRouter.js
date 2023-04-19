@@ -8,7 +8,6 @@ export default function IndexRouter() {
 
     <Switch>
       <Route path='/login' component={Login} />
-      {/* <Route path='/' component={NewsSandBox} /> */}
       <Route path='/' render={() => 
         localStorage.getItem('token') ?
           <NewsSandBox></NewsSandBox> :
