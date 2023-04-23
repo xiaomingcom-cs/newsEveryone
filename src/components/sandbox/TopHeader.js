@@ -13,13 +13,15 @@ function TopHeader(props) {
   const changeCollapsed = () => {
     setCollapsed(!collapsed)
   }
+  const {role:{roleName},username} =JSON.parse(localStorage.getItem('token')) 
+
   const menu = (
     <Menu
       items={[
         {
           key: '1',
           label: (
-            '超级管理员'
+            roleName
           ),
         },
         {
@@ -38,7 +40,7 @@ function TopHeader(props) {
     <Header
       className="site-layout-background"
       style={{
-        padding: '0 16px',
+        padding: '0 16px', 
       }}
     >
       {/* {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
@@ -48,7 +50,7 @@ function TopHeader(props) {
       {collapsed ? <MenuFoldOutlined onClick={changeCollapsed} />
         : <MenuUnfoldOutlined onClick={changeCollapsed} />}
       <div style={{ float: "right" }}>
-        <span>欢迎admin回来</span>
+        <span>欢迎<span style={{color:'#1890ff'}}>{username}</span>回来</span>
         <Dropdown overlay={menu}>
         <Avatar size="large" icon={<UserOutlined />} />
         </Dropdown>

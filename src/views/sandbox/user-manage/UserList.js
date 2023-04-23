@@ -15,27 +15,39 @@ export default function UserList() {
   const [isAddVisible, setisAddVisible] = useState(false)
   const [roleList, setroleList] = useState([])
   const [regionList, setregionList] = useState([])
-  const [current,setcurrent] = useState(null)
+  const [current, setcurrent] = useState(null)
   const [isUpdateVisible, setisUpdateVisible] = useState(false)
   const [isUpdateDisabled, setisUpdateDisabled] = useState(false)
   const addForm = useRef([])
   const updateForm = useRef([])
+
+  const { roleId, region, username } = JSON.parse(localStorage.getItem("token"))
+
+  const roleObj = {
+    "1": "superadmin",
+    "2": "admin",
+    "3": "editor"
+  }
   useEffect(() => {
-    axios.get("http://localhost:8000/roles").then(res => {
+    axios.get("/roles").then(res => {
       const list = res.data
       setroleList(list)
     })
   }, [])
   useEffect(() => {
-    axios.get("http://localhost:8000/regions").then(res => {
+    axios.get("/regions").then(res => {
       const list = res.data
       setregionList(list)
     })
   }, [])
   useEffect(() => {
-    axios.get("http://localhost:8000/users?_expand=role").then(res => {
+    axios.get("/users?_expand=role").then(res => {
       const list = res.data
-      setdataSource(list)
+      console.log(roleObj[roleId] === "superadmin")
+      setdataSource(roleObj[roleId] === "superadmin" ? list : [
+        ...list.filter(item => item.username === username),
+        ...list.filter(item => item.region === region && roleObj[item.roleId] === "editor")
+      ])
     })
   }, [])
   const columns = [
@@ -54,9 +66,9 @@ export default function UserList() {
       ],
       onFilter: (value, item) => {
         if (value === "全球") {
-          return item.region===""
+          return item.region === ""
         }
-        return item.region===value
+        return item.region === value
       },
       render: (region) => {
         return <b>{region === "" ? "全球" : region}</b>
@@ -127,7 +139,7 @@ export default function UserList() {
     item.roleState = !item.roleState
     setdataSource([...dataSource])
     //同步后端
-    axios.patch(`http://localhost:8000/users/${item.id}`, {
+    axios.patch(`/users/${item.id}`, {
       roleState: item.roleState
     })
     //后续还需实现角色状态与是否能够登录联动
@@ -148,7 +160,7 @@ export default function UserList() {
 
   const deleteMethod = (item) => {
     setdataSource(dataSource.filter(data => data.id !== item.id))
-    axios.delete(`http://localhost:8000/users/${item.id}`)
+    axios.delete(`/users/${item.id}`)
   }
 
   const addFormOk = () => {
@@ -161,7 +173,7 @@ export default function UserList() {
       addForm.current.resetFields()
 
       //先post到后端，生成id(后端自增长生成)，再设置dataSource，方便后面的删除和更新，否则没有id不好处理
-      axios.post(`http://localhost:8000/users`, {
+      axios.post(`/users`, {
         ...value,
         "roleState": true,
         "default": false,
@@ -188,14 +200,14 @@ export default function UserList() {
           return {
             ...item,
             ...value,
-            role: roleList.filter(data=>data.id===value.roleId)[0]
+            role: roleList.filter(data => data.id === value.roleId)[0]
           }
         }
         return item
       }))
       // setTimeout(setisUpdateDisabled(!isUpdateDisabled), 0)
       setisUpdateDisabled(!isUpdateDisabled)
-      axios.patch(`http://localhost:8000/users/${current.id}`,value)
+      axios.patch(`/users/${current.id}`, value)
 
     })
   }
@@ -203,7 +215,7 @@ export default function UserList() {
     <div>
       <Button type='primary' onClick={() => setisAddVisible(true)}>添加用户</Button>
       <Table dataSource={dataSource} columns={columns}
-        pagination={{ 
+        pagination={{
           pageSize: 5
         }}
         rowKey={item => item.id}
@@ -236,7 +248,7 @@ export default function UserList() {
         onOk={() => updateFormOk()}
       >
         <UserForm regionList={regionList} roleList={roleList}
-          ref={updateForm} isUpdateDisabled={isUpdateDisabled}
+          ref={updateForm} isUpdateDisabled={isUpdateDisabled} isUpdate={true}
         ></UserForm>
       </Modal>
 

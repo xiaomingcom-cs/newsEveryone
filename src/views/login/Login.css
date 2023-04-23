@@ -1,0 +1,13 @@
+.loginForm {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50% );
+}
+.loginTitle {
+  text-align: center;
+  height: 80px;
+  line-height: 80px;
+  font-size: 24px;
+  color:#1677FF;
+}

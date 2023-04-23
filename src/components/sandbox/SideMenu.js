@@ -59,17 +59,18 @@ const iconList = {
 function SideMenu(props) {
   const [menu, setMenu] = useState([])
   useEffect(() => {
-    axios.get("http://localhost:8000/rights?_embed=children").then(
+    axios.get("/rights?_embed=children").then(
       res => {
-        console.log(res.data)
         setMenu(res.data)
       }
 
     )
   }, [])
 
+  const { role: { rights } } = JSON.parse(localStorage.getItem('token'))
+
   const checkPagePermission = (item) => {
-    return item.pagepermisson !== undefined//直接返回item.pagepermisson有时候可以，有时候不行，还是这样写保险
+    return item.pagepermisson !== undefined && rights.includes(item.key)//直接返回item.pagepermisson有时候可以，有时候不行，还是这样写保险
   }
   const renderMenu = (menuList) => {
     return menuList.map(item => {
@@ -102,7 +103,7 @@ function SideMenu(props) {
           </Menu>
         </div>
       </div>
-  
+
     </Sider>
   )
 }

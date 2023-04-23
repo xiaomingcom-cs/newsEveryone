@@ -12,7 +12,7 @@
     {
       "username": "钢蛋",
       "password": "123",
-      "roleState": false,
+      "roleState": true,
       "default": false,
       "region": "",
       "roleId": 1,
@@ -162,7 +162,6 @@
         "/publish-manage/unpublished",
         "/publish-manage/published",
         "/publish-manage/sunset",
-        "/audit-manage/audit",
         "/news-manage/list",
         "/news-manage/add",
         "/news-manage/update/:id",
@@ -200,7 +199,7 @@
       "title": "用户列表",
       "rightId": 2,
       "key": "/user-manage/list",
-      "pagepermisson": 0,
+      "pagepermisson": 1,
       "grade": 2
     },
     {
@@ -208,7 +207,7 @@
       "title": "角色列表",
       "rightId": 7,
       "key": "/right-manage/role/list",
-      "pagepermisson": 0,
+      "pagepermisson": 1,
       "grade": 2
     },
     {
@@ -216,7 +215,7 @@
       "title": "权限列表",
       "rightId": 7,
       "key": "/right-manage/right/list",
-      "pagepermisson": 0,
+      "pagepermisson": 1,
       "grade": 2
     },
     {
@@ -765,6 +764,34 @@
       "view": 10,
       "id": 21,
       "publishTime": 1635942719548
+    },
+    {
+      "title": "新闻发布管理系统",
+      "categoryId": 1,
+      "content": "<p>a</p>\n",
+      "region": "全球",
+      "author": "admin",
+      "roleId": 1,
+      "auditState": 0,
+      "publishState": 0,
+      "createTime": 1682234356354,
+      "star": 0,
+      "view": 0,
+      "id": 22
+    },
+    {
+      "title": "新闻发布管理系统2",
+      "categoryId": 1,
+      "content": "<p>b</p>\n",
+      "region": "全球",
+      "author": "admin",
+      "roleId": 1,
+      "auditState": 1,
+      "publishState": 0,
+      "createTime": 1682234379913,
+      "star": 0,
+      "view": 0,
+      "id": 23
     }
   ]
 }
