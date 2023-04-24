@@ -473,10 +473,49 @@
       "auditState": 2,
       "publishState": 2,
       "createTime": 1615778694831,
-      "star": 500,
-      "view": 804,
+      "star": 501,
+      "view": 810,
       "id": 2,
-      "publishTime": 1615778911028
+      "publishTime": 1615778911028,
+      "role": {
+        "id": 1,
+        "roleName": "超级管理员",
+        "roleType": 1,
+        "rights": [
+          "/user-manage/add",
+          "/user-manage/delete",
+          "/user-manage/update",
+          "/right-manage",
+          "/right-manage/right/list",
+          "/right-manage/role/update",
+          "/right-manage/right/update",
+          "/news-manage",
+          "/news-manage/list",
+          "/news-manage/add",
+          "/news-manage/update/:id",
+          "/news-manage/preview/:id",
+          "/news-manage/draft",
+          "/news-manage/category",
+          "/audit-manage",
+          "/audit-manage/audit",
+          "/audit-manage/list",
+          "/publish-manage",
+          "/publish-manage/unpublished",
+          "/publish-manage/published",
+          "/publish-manage/sunset",
+          "/user-manage",
+          "/user-manage/list",
+          "/right-manage/role/list",
+          "/right-manage/role/delete",
+          "/right-manage/right/delete",
+          "/home"
+        ]
+      },
+      "category": {
+        "id": 1,
+        "title": "时事新闻",
+        "value": "时事新闻"
+      }
     },
     {
       "title": "Introducing JSX",
