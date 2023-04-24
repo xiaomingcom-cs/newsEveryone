@@ -6,12 +6,15 @@ import {
   MenuUnfoldOutlined
 } from '@ant-design/icons';
 import { withRouter } from 'react-router-dom';
+import {connect} from 'react-redux'
+
 const { Header } = Layout
 
 function TopHeader(props) {
-  const [collapsed, setCollapsed] = useState(false)
+  // const [collapsed, setCollapsed] = useState(false)
   const changeCollapsed = () => {
-    setCollapsed(!collapsed)
+
+    props.changeCollapsed()
   }
   const {role:{roleName},username} =JSON.parse(localStorage.getItem('token')) 
 
@@ -47,7 +50,7 @@ function TopHeader(props) {
         className: 'trigger',
         onClick: () => setCollapsed(!collapsed),
       })} */}
-      {collapsed ? <MenuFoldOutlined onClick={changeCollapsed} />
+      {props.isCollapsed ? <MenuFoldOutlined onClick={changeCollapsed} />
         : <MenuUnfoldOutlined onClick={changeCollapsed} />}
       <div style={{ float: "right" }}>
         <span>欢迎<span style={{color:'#1890ff'}}>{username}</span>回来</span>
@@ -59,5 +62,16 @@ function TopHeader(props) {
 
   )
 }
-
-export default withRouter(TopHeader)
+const mapStateToProps = ({CollapsedReducer:{isCollapsed}}) => {
+  return {
+    isCollapsed
+  }
+}
+const mapDispatchToProps = {
+  changeCollapsed() {
+    return {
+      type: "change_collapsed"
+    }
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(TopHeader))

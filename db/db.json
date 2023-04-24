@@ -603,7 +603,7 @@
       "region": "全球",
       "author": "admin",
       "roleId": 1,
-      "auditState": 1,
+      "auditState": 0,
       "publishState": 0,
       "createTime": 1635339700913,
       "star": 0,
@@ -618,7 +618,7 @@
       "author": "admin",
       "roleId": 1,
       "auditState": 2,
-      "publishState": 1,
+      "publishState": 2,
       "createTime": 1635342060878,
       "star": 0,
       "view": 0,
@@ -766,20 +766,6 @@
       "publishTime": 1635942719548
     },
     {
-      "title": "新闻发布管理系统",
-      "categoryId": 1,
-      "content": "<p>a</p>\n",
-      "region": "全球",
-      "author": "admin",
-      "roleId": 1,
-      "auditState": 0,
-      "publishState": 0,
-      "createTime": 1682234356354,
-      "star": 0,
-      "view": 0,
-      "id": 22
-    },
-    {
       "title": "新闻发布管理系统2",
       "categoryId": 1,
       "content": "<p>b</p>\n",
@@ -792,6 +778,34 @@
       "star": 0,
       "view": 0,
       "id": 23
+    },
+    {
+      "title": "新闻发布管理系统1.0",
+      "categoryId": 3,
+      "content": "<p>a</p>\n",
+      "region": "全球",
+      "author": "admin",
+      "roleId": 1,
+      "auditState": 1,
+      "publishState": 0,
+      "createTime": 1682236381861,
+      "star": 0,
+      "view": 0,
+      "id": 24
+    },
+    {
+      "title": "新闻发布管理系统3.0",
+      "categoryId": 3,
+      "content": "<p>3</p>\n",
+      "region": "全球",
+      "author": "admin",
+      "roleId": 1,
+      "auditState": 1,
+      "publishState": 0,
+      "createTime": 1682318390117,
+      "star": 0,
+      "view": 0,
+      "id": 25
     }
   ]
 }

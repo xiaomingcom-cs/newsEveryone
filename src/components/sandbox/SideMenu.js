@@ -8,6 +8,8 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from '@ant-design/icons';
+import {connect} from 'react-redux'
+
 const { Sider } = Layout
 const { SubMenu } = Menu
 const menuList = [
@@ -88,11 +90,11 @@ function SideMenu(props) {
       }
 
     })
-  }
+  } 
   const selectKey = [props.location.pathname]
   const openKey = ["/" + props.location.pathname.split("/")[1]]
   return (
-    <Sider trigger={null} collapsible >
+    <Sider trigger={null} collapsible collapsed={props.isCollapsed}>
       <div style={{ display: 'flex', height: "100%", "flexDirection": "column" }}>
         <div className="logo" >全球新闻发布管理系统</div>
         <div style={{ flex: 1, "overflow": "auto" }}>
@@ -107,4 +109,9 @@ function SideMenu(props) {
     </Sider>
   )
 }
-export default withRouter(SideMenu)
+const mapStateToProps = ({CollapsedReducer:{isCollapsed}}) => {
+  return {
+    isCollapsed
+  }
+}
+export default connect(mapStateToProps)(withRouter(SideMenu))

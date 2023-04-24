@@ -7,7 +7,7 @@ import UserList from './user-manage/UserList'
 import RoleList from './right-manage/RoleList'
 import RightList from './right-manage/RightList'
 import Nopermission from './nopermission/Nopermission'
-import { Layout, Menu } from 'antd'
+import { Layout, Menu,Spin } from 'antd'
 import './NewsSandBox.css'
 import NewsAdd from './news-manage/NewsAdd'
 import NewsDraft from './news-manage/NewsDraft'
@@ -20,6 +20,9 @@ import Sunset from './publish-manage/Sunset'
 import axios from 'axios'
 import nProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+import NewsPreview from './news-manage/NewsPreview'
+import NewsUpdate from './news-manage/NewsUpdate'
+import { connect } from 'react-redux'
 const { Content } = Layout
 
 const LocalRouterMap = {
@@ -30,6 +33,8 @@ const LocalRouterMap = {
   "/news-manage/add": NewsAdd,
   "/news-manage/draft": NewsDraft,
   "/news-manage/category": NewsCategory,
+  "/news-manage/preview/:id": NewsPreview,
+  "/news-manage/update/:id": NewsUpdate,
   "/audit-manage/audit": Audit,
   "/audit-manage/list": AuditList,
   "/publish-manage/unpublished": Unpublished,
@@ -37,7 +42,7 @@ const LocalRouterMap = {
   "/publish-manage/sunset": Sunset
 }
 
-export default function NewsSandBox() {
+function NewsSandBox(props) {
   nProgress.start()
   useEffect(() => {
     nProgress.done()
@@ -53,7 +58,7 @@ export default function NewsSandBox() {
   }, [])
 
   const checkRoute = (item) => {
-    return item.pagepermisson
+    return (item.pagepermisson || item.routepermisson)
   }
   const { role: { rights } } = JSON.parse(localStorage.getItem("token"))
   const checkUserPermission = (item) => {
@@ -73,28 +78,35 @@ export default function NewsSandBox() {
             overflow: "auto"
           }}
         >
-          <Switch>
-            {
-              BackRouteList.map(item => {
-                if (LocalRouterMap[item.key]) {
-                  if (checkRoute(item) && checkUserPermission(item)) {
-                    return <Route path={item.key} key={item.key}
-                      component={LocalRouterMap[item.key]} exact />
+          <Spin size='large' spinning={props.isLoading}>
+            <Switch>
+              {
+                BackRouteList.map(item => {
+                  if (LocalRouterMap[item.key]) {
+                    if (checkRoute(item) && checkUserPermission(item)) {
+                      return <Route path={item.key} key={item.key}
+                        component={LocalRouterMap[item.key]} exact />
+                    }
+                    return <Nopermission />
                   }
-                  return <Nopermission />
-                }
-              })
-            }
-            <Redirect from='/' to="/home" exact />
-            {/* 如果此时是/路径(模糊匹配，只要是/开头都能匹配到)，不能不显示，就默认显示/home */}
-            {
-              BackRouteList.length > 0 && <Route path="*"
-                component={Nopermission} />
-            }
-          </Switch>
+                })
+              }
+              <Redirect from='/' to="/home" exact />
+              {/* 如果此时是/路径(模糊匹配，只要是/开头都能匹配到)，不能不显示，就默认显示/home */}
+              {
+                BackRouteList.length > 0 && <Route path="*"
+                  component={Nopermission} />
+              }
+              </Switch>
+            </Spin>
         </Content>
       </Layout>
     </Layout>
 
   )
 }
+
+const mapStateToProps = ({LoadingReducer:{isLoading}}) => ({
+  isLoading
+})
+export default connect(mapStateToProps)(NewsSandBox)
